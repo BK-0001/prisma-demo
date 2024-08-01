@@ -15,8 +15,10 @@ app.all("*", (req: Request, res: Response) => {
     .json({ error: `Not Found Route - ${req.method} ${req.path}` });
 });
 
-app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
-  if (error instanceof CustomError) {
-    res.status(error.statusCode).json(error);
+app.use(
+  (error: CustomError, req: Request, res: Response, next: NextFunction) => {
+    if (error instanceof CustomError) {
+      res.status(error.statusCode).json(error);
+    }
   }
-});
+);
