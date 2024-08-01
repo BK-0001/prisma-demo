@@ -25,6 +25,19 @@ model Account {
   role      Role     @default(NORMAL)
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+  profile   Profile?
 
   @@map("accounts")
+}
+
+model Profile {
+  id        Int      @id @default(autoincrement())
+  firstName String?  @map("first_name")
+  lastName  String?  @map("last_name")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+  accountId Int      @unique @map("account_id")
+  account   Account  @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  @@map("profiles")
 }
