@@ -40,5 +40,8 @@
       "eslint --cache --fix",
       "prettier --write"
     ]
+  },
+  "prisma": {
+    "seed": "tsnd --inspect -- prisma/seed.ts "
   }
 }
