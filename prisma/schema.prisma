@@ -54,6 +54,12 @@ model Board {
   profileId Int      @map("profile_id")
   profile   Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
 
+  // implicit
+  // pins Pin[]
+
+  // explicit 
+  boardPins BoardPin[]
+
   @@map("boards")
 }
 
@@ -67,5 +73,27 @@ model Pin {
   profileId Int?     @map("profile_id")
   profile   Profile? @relation(fields: [profileId], references: [id], onDelete: SetNull)
 
+  // implicit
+  // boards Board[]
+
+  // explicit 
+  boardPins BoardPin[]
+
   @@map("pins")
+}
+
+model BoardPin {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  // explicit - boards
+  boardId Int   @map("board_id")
+  board   Board @relation(fields: [boardId], references: [id])
+
+  // explicit - pins
+  pinId Int @map("pin_id")
+  pin   Pin @relation(fields: [pinId], references: [id])
+
+  @@map("board_pins")
 }
