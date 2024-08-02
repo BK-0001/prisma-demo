@@ -61,7 +61,7 @@ const run = async () => {
         }
       }
     },
-    where: { id: 1 }
+    where: { id: boards[0].id } // id: 1
   });
 
   console.log("----------board including pins-------------", boardIncludesPins);
