@@ -1,4 +1,6 @@
 import express, { NextFunction, Request, Response } from "express";
+// catches all errors happening inside server anywhere and pass request to the global error handling
+import "express-async-errors";
 import { CustomError } from "./errors/custom-error";
 import { apiRouter } from "./routes";
 
