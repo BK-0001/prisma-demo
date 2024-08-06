@@ -89,11 +89,11 @@ model BoardPin {
 
   // explicit - boards
   boardId Int   @map("board_id")
-  board   Board @relation(fields: [boardId], references: [id])
+  board   Board @relation(fields: [boardId], references: [id], onDelete: Cascade)
 
   // explicit - pins
   pinId Int @map("pin_id")
-  pin   Pin @relation(fields: [pinId], references: [id])
+  pin   Pin @relation(fields: [pinId], references: [id], onDelete: Cascade)
 
   @@map("board_pins")
 }
