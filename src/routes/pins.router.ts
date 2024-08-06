@@ -1,3 +1,5 @@
+import { Prisma } from "@prisma/client";
+import { DefaultArgs } from "@prisma/client/runtime/library";
 import { Request, Response, Router } from "express";
 import { prisma } from "../../prisma/client";
 import { CustomError } from "../errors/custom-error";
@@ -126,16 +128,18 @@ pinsRouter.post("/", async (req: Request, res: Response) => {
 pinsRouter.patch(
   "/:id",
   async (
-    req: Request<{ id: string }, unknown, { name: string; image: string }>,
+    req: Request<{ id: string }, unknown, Prisma.PinUpdateInput>,
     res: Response
   ) => {
     const id = +req.params.id;
-    const pinUpdateData = req.body;
+    const pinUpdateInput = req.body;
 
-    const updated = await prisma.pin.update({
+    const option: Prisma.PinUpdateArgs<DefaultArgs> = {
       where: { id },
-      data: pinUpdateData
-    });
+      data: pinUpdateInput
+    };
+
+    const updated = await prisma.pin.update(option);
 
     res.json(updated);
   }
